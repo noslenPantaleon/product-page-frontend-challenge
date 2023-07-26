@@ -1,0 +1,73 @@
+@import './variables.scss';
+@import url('https://fonts.googleapis.com/css2?family=Kumbh+Sans:wght@400;700&display=swap');
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  text-decoration: none;
+}
+
+html {
+  width: 100vw;
+  overflow-x: hidden;
+  font-family: var(--primary-font);
+}
+
+/* Set core body defaults */
+body {
+  // background-color: var(--main-background);
+  overflow-x: hidden;
+  min-height: 100vh;
+  scroll-behavior: smooth;
+  text-rendering: optimizeSpeed;
+  line-height: 1.5;
+}
+
+/* Remove list styles on ul, ol elements with a class attribute */
+ul[class],
+ol[class] {
+  list-style: none;
+}
+
+Link,
+a {
+  text-decoration: none;
+}
+
+/* Make images easier to work with */
+// img {
+//   max-width: 100%;
+//   display: block;
+// }
+
+/* Natural flow and rhythm in articles by default */
+article > * + * {
+  margin-top: 1em;
+}
+
+/*layaout*/
+
+.container {
+  display: grid;
+  grid-template-areas:
+    'header header header'
+    'main main main';
+  grid-template-rows: 100px repeat(2, 1fr) 300px;
+  grid-template-columns: 15% 1fr 15%;
+  height: 100vh;
+}
+
+header {
+  grid-area: header;
+}
+
+main {
+  grid-area: main;
+  background-color: var(--Light-grayish-blue);
+  height: 100vh;
+}
+
+footer {
+  grid-area: footer;
+}

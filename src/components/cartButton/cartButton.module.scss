@@ -1,0 +1,28 @@
+.buttonContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 270px;
+  height: 55px;
+  border: none;
+  border-radius: 10px;
+  color: white;
+  background-color: var(--Orange);
+  padding-left: 0.5rem;
+  padding-right: 0.5rem;
+}
+
+.buttonContainer:hover {
+  background-color: rgb(238, 184, 84);
+}
+
+.buttonText {
+  display: flex;
+  gap: 1rem;
+  font-size: 16px;
+  font-weight: 700;
+}
+
+.icon {
+  filter: invert(48%) saturate(2476%) brightness(200%) contrast(119%);
+}

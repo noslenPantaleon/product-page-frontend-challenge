@@ -1,0 +1,11 @@
+.layout {
+  padding: 0 10rem 0 10rem;
+  display: flex;
+  flex-direction: column;
+
+  // @include media-breakpoint-between(xs, md) {
+  //   padding: 0 1rem 0 1rem;
+  //   display: flex;
+  //   flex-direction: column;
+  // }
+}
