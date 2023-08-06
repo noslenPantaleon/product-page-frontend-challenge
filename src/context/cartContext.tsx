@@ -1,6 +1,6 @@
 // CartContext.tsx
 'use client';
-import { createContext, useReducer } from 'react';
+import { createContext, useReducer, useEffect } from 'react';
 import {
   cartReducer,
   CartContextType,
@@ -14,6 +14,8 @@ export const CartContext = createContext<CartContextType>({
   addToCart: () => {},
   removeFromCart: () => {},
   clearCart: () => {},
+  decrementQuantity: () => {},
+  incrementQuantity: () => {},
 });
 
 type Props = {
@@ -31,18 +33,71 @@ const useCartReducer = () => {
     dispatch({ type: 'REMOVE_FROM_CART', payload: id });
   };
 
+  const decrementQuantity = (id: number) => {
+    dispatch({ type: 'DECREMENT_QUANTITY', payload: id });
+  };
+
+  const incrementQuantity = (id: number) => {
+    dispatch({ type: 'INCREMENT_QUANTITY', payload: id });
+  };
+
   const clearCart = () => {
     dispatch({ type: 'CLEAR_CART' });
   };
-  return { state, addToCart, removeFromCart, clearCart };
+
+  const loadCart = (item: string) => {
+    dispatch({
+      type: 'LOAD_CART',
+      payload: JSON.parse(item),
+    });
+  };
+  return {
+    state,
+    addToCart,
+    removeFromCart,
+    clearCart,
+    decrementQuantity,
+    incrementQuantity,
+    loadCart,
+  };
 };
 
+const CART_STORAGE_KEY = 'cartItems';
+
 export const CartProvider: React.FC<Props> = ({ children }) => {
-  const { state, addToCart, removeFromCart, clearCart } = useCartReducer();
+  const {
+    state,
+    addToCart,
+    removeFromCart,
+    clearCart,
+    decrementQuantity,
+    incrementQuantity,
+    loadCart,
+  } = useCartReducer();
+
+  // Load cart items from localStorage on initial render
+  useEffect(() => {
+    const cartItemsFromStorage = localStorage.getItem(CART_STORAGE_KEY);
+    if (cartItemsFromStorage) {
+      loadCart(cartItemsFromStorage);
+    }
+  }, []);
+
+  // Update localStorage whenever cart items change
+  useEffect(() => {
+    localStorage.setItem(CART_STORAGE_KEY, JSON.stringify(state.cartItems));
+  }, [state.cartItems]);
 
   return (
     <CartContext.Provider
-      value={{ state, addToCart, removeFromCart, clearCart }}
+      value={{
+        state,
+        addToCart,
+        removeFromCart,
+        clearCart,
+        decrementQuantity,
+        incrementQuantity,
+      }}
     >
       {children}
     </CartContext.Provider>
