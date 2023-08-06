@@ -2,20 +2,32 @@
 
 import CartButton from '../../cartButton/CartButton';
 import ProductInfo from '../productInfo/ProductInfo';
-import ProductCounter from '../../productcounter/ProductCounter';
+import ProductCounter from '../productcounter/ProductCounter';
 import styles from './productMain.module.scss';
-import ProductSlider from '../../productslider/ProductSlider';
+import ProductSlider from '../productslider/ProductSlider';
 import useCart from '@/hooks/useCart';
-import { FC } from 'react';
+import { FC, useEffect, useState } from 'react';
 import { ProductsType } from '../../../mocks/productsType';
 import productsJson from '../../../mocks/products.json';
+import { fetchData } from '@/services/fetch';
 
 const ProductMain = () => {
-  const { state, addToCart, removeFromCart, clearCart } = useCart();
+  const { addToCart } = useCart();
+  const [products, setProducts] = useState();
 
+  const getProducts = async () => {
+    const productsApi = await fetchData();
+    setProducts(productsApi);
+  };
+
+  useEffect(() => {
+    getProducts();
+  }, []);
+
+  console.log('api:', typeof products);
   const handleAddToCart = () => {
     {
-      state.cartItems.map((item) => {
+      productsJson.PRODUCTS.map((item) => {
         const cart = {
           id: item.id,
           title: item.title,
@@ -24,6 +36,7 @@ const ProductMain = () => {
           thumbnail: item.thumbnail,
         };
         addToCart(cart);
+        console.log(cart);
       });
     }
   };
@@ -31,15 +44,22 @@ const ProductMain = () => {
   return (
     <>
       <main>
-        {productsJson.products.map((product) => {
+        {productsJson.PRODUCTS.map((product) => {
           return (
             <article className={styles.addtoCartContainer} key={product.id}>
               <div>
                 <ProductSlider id={product.id} />
               </div>
               <div>
-                <ProductInfo id={product.id} />
-                <ProductCounter />
+                <ProductInfo
+                  id={product.id}
+                  title={product.title}
+                  subtitle={product.subtitle}
+                  description={product.description}
+                  price={product.price}
+                  discountPercentage={product.discountPercentage}
+                />
+                <ProductCounter id={product.id} />
                 <CartButton
                   icon={'../images/icon-cart.svg'}
                   ButtonName={'Add to cart'}

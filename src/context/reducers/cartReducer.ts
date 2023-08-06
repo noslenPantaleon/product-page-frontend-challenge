@@ -1,16 +1,19 @@
-export const initialState: CartState = {
-  cartItems: [
-    {
-      id: 1,
-      title: 'First',
-      price: 50,
-      quantity: 2,
-      thumbnail: '../images/image-product-1.jpg',
-    },
-  ],
-};
+// export const initialState: CartState = {
+//   cartItems: [
+//     {
+//       id: 0,
+//       title: '',
+//       price: 0,
+//       quantity: 0,
+//       thumbnail: '',
+//     },
+//   ],
+// };
 
-// export const initialState = JSON.parse(localStorage.getItem('cart')) || [];
+export const initialState: CartState = {
+  cartItems: [],
+};
+// export const initialState = JSON.parse(window.localStorage.getItem('cart')) || [];
 
 export type CartItem = {
   id: number;
@@ -27,14 +30,23 @@ export type CartState = {
 type Action =
   | { type: 'ADD_TO_CART'; payload: CartItem }
   | { type: 'REMOVE_FROM_CART'; payload: number }
-  | { type: 'IMCREMENT'; payload: number }
-  | { type: 'CLEAR_CART' };
+  | { type: 'DECREMENT_QUANTITY'; payload: number }
+  | { type: 'INCREMENT_QUANTITY'; payload: number }
+  | { type: 'CLEAR_CART' }
+  | { type: 'LOAD_CART'; payload: CartItem[] };
 
 export type CartContextType = {
   state: CartState;
   addToCart: (item: CartItem) => void;
   removeFromCart: (id: number) => void;
+  decrementQuantity: (id: number) => void;
+  incrementQuantity: (id: number) => void;
   clearCart: () => void;
+};
+
+// update localStorage with state for cart
+export const updateLocalStorage = (state: CartState) => {
+  window.localStorage.setItem('cart', JSON.stringify(state));
 };
 
 export const cartReducer = (state: CartState, action: Action): CartState => {
@@ -60,6 +72,26 @@ export const cartReducer = (state: CartState, action: Action): CartState => {
         };
       }
 
+    case 'INCREMENT_QUANTITY':
+      return {
+        ...state,
+        cartItems: state.cartItems.map((item) =>
+          item.id === action.payload
+            ? { ...item, quantity: item.quantity + 1 }
+            : item
+        ),
+      };
+
+    case 'DECREMENT_QUANTITY':
+      return {
+        ...state,
+        cartItems: state.cartItems.map((item) =>
+          item.id === action.payload && item.quantity > 1
+            ? { ...item, quantity: item.quantity - 1 }
+            : item
+        ),
+      };
+
     case 'REMOVE_FROM_CART':
       return {
         ...state,
@@ -71,6 +103,13 @@ export const cartReducer = (state: CartState, action: Action): CartState => {
         ...state,
         cartItems: [],
       };
+
+    case 'LOAD_CART':
+      return {
+        ...state,
+        cartItems: action.payload,
+      };
+
     default:
       return state;
   }
