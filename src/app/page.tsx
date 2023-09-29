@@ -3,7 +3,6 @@ import Navbar from '@/components/navbar/Navbar';
 import ProductMain from '@/components/productcard/productmain/ProductMain';
 import { CartProvider } from '@/context/cartContext';
 import Cart from '@/components/cart/Cart';
-import products from '../mocks/products.json';
 import Login from '@/components/login/Login';
 
 export default function Home() {
@@ -11,9 +10,9 @@ export default function Home() {
     <>
       <CartProvider>
         <Navbar />
-        <Cart />
+        {/* <Cart />
+        <Login /> */}
         <ProductMain />
-        <Login />
       </CartProvider>
     </>
   );

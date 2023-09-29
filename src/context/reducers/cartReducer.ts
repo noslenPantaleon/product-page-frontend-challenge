@@ -13,7 +13,8 @@
 export const initialState: CartState = {
   cartItems: [],
 };
-// export const initialState = JSON.parse(window.localStorage.getItem('cart')) || [];
+// export const initialState =
+//   JSON.parse(window.localStorage.getItem('cart')!) || [];
 
 export type CartItem = {
   id: number;
@@ -52,16 +53,16 @@ export const updateLocalStorage = (state: CartState) => {
 export const cartReducer = (state: CartState, action: Action): CartState => {
   switch (action.type) {
     case 'ADD_TO_CART':
-      const existingItem = state.cartItems.find(
+      const existingItem = state.cartItems?.find(
         (item) => item.id === action.payload.id
       );
 
       if (existingItem) {
         return {
           ...state,
-          cartItems: state.cartItems.map((item) =>
+          cartItems: state.cartItems?.map((item) =>
             item.id === action.payload.id
-              ? { ...item, quantity: item.quantity + 1 }
+              ? { ...item, quantity: item.quantity }
               : item
           ),
         };
@@ -75,9 +76,9 @@ export const cartReducer = (state: CartState, action: Action): CartState => {
     case 'INCREMENT_QUANTITY':
       return {
         ...state,
-        cartItems: state.cartItems.map((item) =>
+        cartItems: state.cartItems?.map((item) =>
           item.id === action.payload
-            ? { ...item, quantity: item.quantity + 1 }
+            ? { ...item, quantity: item.quantity + action.payload }
             : item
         ),
       };
@@ -85,8 +86,8 @@ export const cartReducer = (state: CartState, action: Action): CartState => {
     case 'DECREMENT_QUANTITY':
       return {
         ...state,
-        cartItems: state.cartItems.map((item) =>
-          item.id === action.payload && item.quantity > 1
+        cartItems: state.cartItems?.map((item) =>
+          item.id === action.payload && item.quantity !== 0
             ? { ...item, quantity: item.quantity - 1 }
             : item
         ),
@@ -95,7 +96,9 @@ export const cartReducer = (state: CartState, action: Action): CartState => {
     case 'REMOVE_FROM_CART':
       return {
         ...state,
-        cartItems: state.cartItems.filter((item) => item.id !== action.payload),
+        cartItems: state.cartItems?.filter(
+          (item) => item.id !== action.payload
+        ),
       };
 
     case 'CLEAR_CART':

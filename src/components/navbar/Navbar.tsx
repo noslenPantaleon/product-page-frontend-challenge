@@ -1,36 +1,67 @@
 'use client';
-import { useId } from 'react';
+
 import styles from './navbar.module.scss';
-import Avatar from '../avatar/Avatar';
 import useCart from '@/hooks/useCart';
+import Cart from '../cart/Cart';
+import Login from '../login/Login';
+import React, { useState } from 'react';
+import SideMenu from './sidemenu/SideMenu';
+import HamburgerMenu from './hamburguer/Hamburguer';
 
 const Navbar = () => {
   const { state } = useCart();
-  const cartCheckboxId = useId();
+  const [isOpen, setIsOpen] = useState<boolean>(false);
 
   return (
     <header>
       <nav className={styles.navbarContainer}>
-        <img src='./images/logo.svg'></img>
-        <ul>
+        {isOpen && <SideMenu />}
+        <div className={styles.burguer} onClick={() => setIsOpen(!isOpen)}>
+          <HamburgerMenu isOpen={isOpen} setIsOpen={setIsOpen} />
+        </div>
+        <img className={styles.logo} src='./images/logo.svg' alt='logo' />
+        <ul className={styles.desktopMenu}>
           <li>Collections</li>
           <li>Men</li>
           <li>Women</li>
           <li>About</li>
           <li>Contact</li>
         </ul>
-        {/* <div className={styles.cartSection}>
-          <label htmlFor={cartCheckboxId}>
-            <img src='./images/icon-cart.svg' alt='cart-icon' />
-          </label>
-          <input id={cartCheckboxId} type='checkbox' hidden></input>
-
-          <Avatar pic={'./images/image-avatar.png'} />
+        <div className={styles.loginCart}>
+          <Cart />
+          <Login />
         </div>
-        <span>{state.cartItems.map((item) => item.quantity)}</span> */}
       </nav>
     </header>
   );
 };
 
 export default Navbar;
+
+{
+  /* <header>
+<div className={styles.burguer} onClick={() => setIsOpen(!isOpen)}>
+  <HamburgerMenu isOpen={isOpen} setIsOpen={setIsOpen} />
+</div>
+{isOpen ? (
+  <div>
+    <SideMenu />
+  </div>
+) : (
+  <nav className={styles.navbarContainer}>
+    <img className={styles.logo} src='./images/logo.svg' alt='logo' />
+    <ul>
+      <li>Collections</li>
+      <li>Men</li>
+      <li>Women</li>
+      <li>About</li>
+      <li>Contact</li>
+      <div className={styles.loginCart}>
+        <Cart />
+        <Login />
+      </div>
+    </ul>
+  </nav>
+)}
+</header> */
+}

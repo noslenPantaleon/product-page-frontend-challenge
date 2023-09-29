@@ -8,8 +8,6 @@ const useCart = () => {
   }
 
   return context;
-
-  return context;
 };
 
 export default useCart;
