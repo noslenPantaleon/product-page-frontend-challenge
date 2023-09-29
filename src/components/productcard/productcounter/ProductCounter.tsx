@@ -11,28 +11,20 @@ interface props {
 }
 
 const ProductCounter: React.FC<props> = ({ id }) => {
+  const { state, decrementQuantity, incrementQuantity, removeFromCart } =
+    useCart();
   const [counter, setCounter] = useState<number>(0);
-  const {
-    state,
-    addToCart,
-    decrementQuantity,
-    incrementQuantity,
-    removeFromCart,
-  } = useCart();
 
   const cartId = state.cartItems.filter((val) => val.id === id);
   // console.log('cartId:', typeof cartId);
 
   const incrementCounter = () => {
     setCounter(counter + 1);
+
     {
       cartId.map((item) => {
         const cart = {
           id: item.id,
-          title: item.title,
-          price: item.price,
-          quantity: item.quantity,
-          thumbnail: item.thumbnail,
         };
 
         incrementQuantity(cart.id);
@@ -41,21 +33,18 @@ const ProductCounter: React.FC<props> = ({ id }) => {
   };
 
   const decrementCounter = () => {
-    if (counter !== 0) {
-      setCounter(counter - 1);
-      {
-        cartId.map((item) => {
-          const cart = {
-            id: item.id,
-            title: item.title,
-            price: item.price,
-            quantity: item.quantity,
-            thumbnail: item.thumbnail,
-          };
-          decrementQuantity(cart.id);
-        });
+    setCounter(counter - 1);
+    cartId.map((item) => {
+      const cart = {
+        id: item.id,
+        quantity: item.quantity,
+      };
+      if (cart.quantity < 1 || undefined) {
+        removeFromCart(cart.id);
+      } else {
+        decrementQuantity(cart.id);
       }
-    }
+    });
   };
 
   return (
@@ -67,12 +56,13 @@ const ProductCounter: React.FC<props> = ({ id }) => {
       >
         <img src={'./images/icon-minus.svg'} />
       </a>
-      {state.cartItems.length <= 0 || undefined ? (
+
+      <h5>{counter}</h5>
+      {/* {state.cartItems.length == 0 || undefined ? (
         <h5>0</h5>
       ) : (
         <h5>{state.cartItems.map((val) => val.quantity)}</h5>
-      )}
-
+      )} */}
       <a
         onClick={() => {
           incrementCounter();

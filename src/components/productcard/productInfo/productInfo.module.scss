@@ -1,7 +1,7 @@
 .productInfoContainer {
   display: flex;
   flex-direction: column;
-  width: 432px;
+  max-width: 432px;
 
   h5 {
     color: var(--Orange);

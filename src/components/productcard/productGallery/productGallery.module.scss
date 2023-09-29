@@ -1,0 +1,41 @@
+.productGallery {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 5rem;
+}
+.mainImage {
+  margin-bottom: 20px;
+  border-radius: 10px;
+}
+
+.thumbnailContainer {
+  display: flex;
+  justify-content: space-between;
+  border-radius: 10px;
+}
+
+.imageProduct {
+  width: 420px;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+.thumbnail {
+  border: 2px solid transparent;
+  cursor: pointer;
+  width: 100px;
+  border-radius: 10px;
+  margin: 0 10px;
+  transition: border-color 0.3s ease-in-out;
+}
+
+@media screen and (max-width: 480px) {
+  .imageProduct {
+    width: 350px;
+  }
+
+  .thumbnail {
+    width: 70px;
+  }
+}

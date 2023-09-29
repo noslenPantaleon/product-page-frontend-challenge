@@ -48,7 +48,7 @@ const useCartReducer = () => {
   const loadCart = (item: string) => {
     dispatch({
       type: 'LOAD_CART',
-      payload: JSON.parse(item),
+      payload: JSON.parse(item) || null,
     });
   };
   return {
@@ -75,13 +75,13 @@ export const CartProvider: React.FC<Props> = ({ children }) => {
     loadCart,
   } = useCartReducer();
 
-  // Load cart items from localStorage on initial render
-  useEffect(() => {
-    const cartItemsFromStorage = localStorage.getItem(CART_STORAGE_KEY);
-    if (cartItemsFromStorage) {
-      loadCart(cartItemsFromStorage);
-    }
-  }, []);
+  //Load cart items from localStorage on initial render
+  // useEffect(() => {
+  //   const cartItemsFromStorage = localStorage.getItem(CART_STORAGE_KEY);
+  //   if (cartItemsFromStorage != undefined) {
+  //     loadCart(cartItemsFromStorage);
+  //   }
+  // }, []);
 
   // Update localStorage whenever cart items change
   useEffect(() => {

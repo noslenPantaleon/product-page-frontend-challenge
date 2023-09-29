@@ -1,0 +1,29 @@
+.sideMenuContainer {
+  position: fixed;
+  top: 0;
+  left: 0;
+  background-color: var(--Pale-orange);
+  width: 50vw;
+  height: 100vh;
+
+  ul {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    gap: 1rem;
+    padding: 3rem;
+    margin-top: 3rem;
+    list-style: none;
+    cursor: pointer;
+    z-index: 9999;
+    color: var(--Very-dark-blue);
+  }
+  li:hover {
+    scale: 1.1;
+    color: var(--Orange);
+  }
+  li {
+    transition: ease-in-out;
+    z-index: 9999;
+  }
+}
