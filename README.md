@@ -34,7 +34,7 @@ Users should be able to:
 ### Links
 
 - Solution URL: [Add solution URL here](https://your-solution-url.com)
-- Live Site URL: [Add live site URL here](https://your-live-site-url.com)
+- Live Site URL: [Add live site URL here](https://product-page-frontend-challenge.vercel.app/)
 
 ## My process
 
@@ -55,12 +55,10 @@ I create a photo slider and gallery without using any external libraries.
 
 ### What I learned
 
-```html
-<h1>
-  I learned to develop an ecomerce site, working with global state using react
-  contex api with useReducer and local storage.
-</h1>
-```
+  I learned to develop an e-commerce site, working with the global state using react
+  context API with useReducer and local storage.
+
+
 
 ### Continued development
 
