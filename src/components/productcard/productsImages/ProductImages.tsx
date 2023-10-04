@@ -1,5 +1,4 @@
 import { FC } from 'react';
-import styles from './productSlider.module.scss';
 import products from '../../../mocks/products.json';
 import ProductGallery from '../productGallery/ProductGallery';
 

@@ -1,20 +1,6 @@
-// export const initialState: CartState = {
-//   cartItems: [
-//     {
-//       id: 0,
-//       title: '',
-//       price: 0,
-//       quantity: 0,
-//       thumbnail: '',
-//     },
-//   ],
-// };
-
 export const initialState: CartState = {
   cartItems: [],
 };
-// export const initialState =
-//   JSON.parse(window.localStorage.getItem('cart')!) || [];
 
 export type CartItem = {
   id: number;

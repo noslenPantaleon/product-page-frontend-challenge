@@ -4,3 +4,9 @@
   height: 50px;
   border-radius: 50%;
 }
+
+.avatar:hover {
+  transition: ease-in-out;
+  border-radius: 100%;
+  border: 2px solid var(--Orange);
+}

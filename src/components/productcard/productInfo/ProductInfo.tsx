@@ -1,6 +1,5 @@
 import { FC } from 'react';
 import styles from './productInfo.module.scss';
-import products from '../../../mocks/products.json';
 
 interface Props {
   id: number;

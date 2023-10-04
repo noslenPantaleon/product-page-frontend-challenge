@@ -76,12 +76,12 @@ export const CartProvider: React.FC<Props> = ({ children }) => {
   } = useCartReducer();
 
   //Load cart items from localStorage on initial render
-  // useEffect(() => {
-  //   const cartItemsFromStorage = localStorage.getItem(CART_STORAGE_KEY);
-  //   if (cartItemsFromStorage != undefined) {
-  //     loadCart(cartItemsFromStorage);
-  //   }
-  // }, []);
+  useEffect(() => {
+    const cartItemsFromStorage = localStorage.getItem(CART_STORAGE_KEY);
+    if (cartItemsFromStorage != undefined) {
+      loadCart(cartItemsFromStorage);
+    }
+  }, []);
 
   // Update localStorage whenever cart items change
   useEffect(() => {
