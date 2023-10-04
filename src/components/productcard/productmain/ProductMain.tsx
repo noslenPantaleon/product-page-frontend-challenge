@@ -2,11 +2,10 @@
 
 import CartButton from '../../cartButton/CartButton';
 import ProductInfo from '../productInfo/ProductInfo';
-import ProductCounter from '../productcounter/ProductCounter';
 import styles from './productMain.module.scss';
 import ProductImages from '../productsImages/ProductImages';
 import useCart from '@/hooks/useCart';
-import { FC, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { ProductsType } from '../../../mocks/productsType';
 import productsJson from '../../../mocks/products.json';
 import { fetchData } from '@/services/fetch';
@@ -25,7 +24,6 @@ const ProductMain = () => {
   const getProducts = async () => {
     const productsApi = await fetchData();
     setProducts(productsApi);
-    console.log('products:', products);
   };
 
   useEffect(() => {
@@ -44,7 +42,6 @@ const ProductMain = () => {
             thumbnail: item.thumbnail,
           };
           addToCart(cart);
-          // console.log(cart);
         });
       }
     }
@@ -96,7 +93,6 @@ const ProductMain = () => {
                   price={product.price}
                   discountPercentage={product.discountPercentage}
                 />
-                {/* <ProductCounter id={product.id} /> */}
                 <section className={styles.counter}>
                   <a
                     onClick={() => {
@@ -107,11 +103,6 @@ const ProductMain = () => {
                   </a>
 
                   <h5>{counter}</h5>
-                  {/* {state.cartItems.length == 0 || undefined ? (
-        <h5>0</h5>
-      ) : (
-        <h5>{state.cartItems.map((val) => val.quantity)}</h5>
-      )} */}
                   <a
                     onClick={() => {
                       incrementCounter();

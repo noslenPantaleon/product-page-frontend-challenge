@@ -14,34 +14,39 @@ const CartItems = ({ thumbnail, title, price, quantity, id }: CartItem) => {
   const total = price * quantity;
 
   return (
-    <li>
-      <div className={styles.productList}>
-        <img src={thumbnail} width={60} height={60}></img>
-        <div>
-          <p>{title}</p>
-          <h3>
-            ${price} x {quantity} <span> {total}</span>
-          </h3>
+    <ul>
+      <li>
+        <div className={styles.productList}>
+          <img src={thumbnail} width={60} height={60}></img>
+          <div>
+            <p>{title}</p>
+            <h3>
+              ${price} x {quantity} <span> {total}</span>
+            </h3>
+          </div>
+          <a onClick={handleRemoveFromCart}>
+            <img src='./images/icon-delete.svg' width={20} height={20}></img>
+          </a>
         </div>
-        <a onClick={handleRemoveFromCart}>
-          <img src='./images/icon-delete.svg' width={20} height={20}></img>
-        </a>
-      </div>
-    </li>
+      </li>
+    </ul>
   );
 };
 
 const Cart = () => {
   const { state } = useCart();
   const cartCheckboxId = useId();
-  const quantities = state.cartItems?.map((item) => item.quantity);
-  // console.log('quantities:', quantities);
-
   return (
     <>
       <label className={styles.cartButton} htmlFor={cartCheckboxId}>
-        <img src='./images/icon-cart.svg' alt='cart-icon' />
-        <span>{state.cartItems?.map((item) => item.quantity)}</span>
+        <img
+          className={styles.cartIcon}
+          src='./images/icon-cart.svg'
+          alt='cart-icon'
+        />
+        <h3 className={state.cartItems.length <= 0 ? '' : styles.circle}>
+          {state.cartItems?.map((item) => item.quantity)}
+        </h3>
       </label>
       <input id={cartCheckboxId} type='checkbox' hidden></input>
       <aside className={styles.cart}>
@@ -61,7 +66,9 @@ const Cart = () => {
                 />
               ))}
             </ul>
-            <CartButton ButtonName='Checkout' />
+            <div className={styles.checkoutButton}>
+              <CartButton ButtonName='Checkout' />
+            </div>
           </div>
         )}
       </aside>

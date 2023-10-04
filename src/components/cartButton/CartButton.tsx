@@ -1,8 +1,7 @@
 'use client';
 
-import { FC, ReactElement, MouseEventHandler } from 'react';
+import { FC, MouseEventHandler } from 'react';
 import styles from './cartButton.module.scss';
-import Image from 'next/image';
 
 interface Props {
   ButtonName: string;

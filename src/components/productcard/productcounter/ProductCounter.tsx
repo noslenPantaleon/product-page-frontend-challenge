@@ -2,9 +2,6 @@
 import React, { useState } from 'react';
 import styles from './productCounter.module.scss';
 import useCart from '@/hooks/useCart';
-import Cart from '@/components/cart/Cart';
-import { CartItem } from '@/context/reducers/cartReducer';
-import { ProductsType } from '../../../mocks/productsType';
 
 interface props {
   id: number;
@@ -16,7 +13,6 @@ const ProductCounter: React.FC<props> = ({ id }) => {
   const [counter, setCounter] = useState<number>(0);
 
   const cartId = state.cartItems.filter((val) => val.id === id);
-  // console.log('cartId:', typeof cartId);
 
   const incrementCounter = () => {
     setCounter(counter + 1);
@@ -56,13 +52,7 @@ const ProductCounter: React.FC<props> = ({ id }) => {
       >
         <img src={'./images/icon-minus.svg'} />
       </a>
-
       <h5>{counter}</h5>
-      {/* {state.cartItems.length == 0 || undefined ? (
-        <h5>0</h5>
-      ) : (
-        <h5>{state.cartItems.map((val) => val.quantity)}</h5>
-      )} */}
       <a
         onClick={() => {
           incrementCounter();
