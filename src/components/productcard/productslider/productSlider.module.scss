@@ -82,13 +82,12 @@
 @media screen and (max-width: 768px) {
   .productSlider {
     display: flex;
-    position: static;
+    position: relative;
     flex-direction: column;
     justify-content: flex-start;
     align-items: center;
     width: 100vw;
     height: 50vh;
-
     z-index: 8000;
     background: none;
     svg {
@@ -107,7 +106,7 @@
   .svgIconNext {
     width: 100px;
     position: absolute;
-    top: 30%;
+    top: 60%;
     right: 0%;
     z-index: 8000;
   }
@@ -115,7 +114,7 @@
   .svgIconBack {
     width: 100px;
     position: absolute;
-    top: 30%;
+    top: 60%;
     left: 0%;
     z-index: 8000;
   }
